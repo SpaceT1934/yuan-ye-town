@@ -1,0 +1,355 @@
+{
+  "recordedAt": "2026-09-06T07:19:36.608Z",
+  "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce",
+  "day": 47,
+  "renderer": "ANGLE (NVIDIA, Vulkan 1.4.329 (NVIDIA NVIDIA GeForce RTX 4070 (0x00002786)), NVIDIA)",
+  "stats": [
+    {
+      "name": "season",
+      "fps": 60.00195658554083,
+      "p95": 16.799999999999272,
+      "over50": 0
+    },
+    {
+      "name": "works",
+      "fps": 60.00260880907864,
+      "p95": 16.799999999999272,
+      "over50": 0
+    },
+    {
+      "name": "election",
+      "fps": 60.00195658554085,
+      "p95": 16.700000000004366,
+      "over50": 0
+    },
+    {
+      "name": "contracts",
+      "fps": 60.002608809078666,
+      "p95": 16.700000000004366,
+      "over50": 0
+    },
+    {
+      "name": "knowledge",
+      "fps": 60.002926972047426,
+      "p95": 16.700000000004366,
+      "over50": 0
+    },
+    {
+      "name": "invitation",
+      "fps": 60.00195658554085,
+      "p95": 16.70000000001164,
+      "over50": 0
+    },
+    {
+      "name": "work",
+      "fps": 60.002195202263515,
+      "p95": 16.70000000001164,
+      "over50": 0
+    },
+    {
+      "name": "community",
+      "fps": 60.002449079554175,
+      "p95": 16.70000000001164,
+      "over50": 0
+    }
+  ],
+  "errors": [],
+  "actual": {
+    "civic": {
+      "commitments": [],
+      "election": {
+        "_creationTime": 1788677771324.6853,
+        "_id": "n57bjhcawp0y6gap9f44ekz3f58dx4nf",
+        "ballots": [],
+        "candidates": [
+          {
+            "name": "斯黛拉",
+            "playerId": "p:4",
+            "pledge": "优先推动建立集市",
+            "projectKey": "market"
+          },
+          {
+            "name": "爱丽丝",
+            "playerId": "p:6",
+            "pledge": "优先推动建立集市",
+            "projectKey": "market"
+          },
+          {
+            "name": "皮特",
+            "playerId": "p:8",
+            "pledge": "优先推动扩建医院",
+            "projectKey": "hospital"
+          },
+          {
+            "name": "林岚",
+            "playerId": "p:8415",
+            "pledge": "优先推动扩建医院",
+            "projectKey": "hospital"
+          },
+          {
+            "name": "苏菲",
+            "playerId": "p:8419",
+            "pledge": "优先推动建立集市",
+            "projectKey": "market"
+          }
+        ],
+        "endsDay": 48,
+        "startedDay": 46,
+        "status": "voting",
+        "votingDay": 47,
+        "winnerName": null,
+        "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+      },
+      "notices": [
+        {
+          "_creationTime": 1788678788670.794,
+          "_id": "nd7f2bsakxtm97b7fcck2n8t6s8dwdvb",
+          "body": "公共财政32枚金币；扩建医院：0/80筹款、0/8材料、0/12劳动；建立集市：0/90筹款、0/12材料、0/16劳动；修缮河桥：0/70筹款、0/10材料、0/14劳动。在世居民5位。",
+          "day": 47,
+          "kind": "daily",
+          "participants": [],
+          "public": true,
+          "title": "建设季第47日小报",
+          "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+        },
+        {
+          "_creationTime": 1788677771324.6875,
+          "_id": "nd73scrjjetwdfrxa69s21c77x8dwmp0",
+          "body": "公共财政46枚金币；扩建医院：0/80筹款、0/8材料、0/12劳动；建立集市：0/90筹款、0/12材料、0/16劳动；修缮河桥：0/70筹款、0/10材料、0/14劳动。在世居民5位。",
+          "day": 46,
+          "kind": "daily",
+          "participants": [],
+          "public": true,
+          "title": "建设季第46日小报",
+          "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+        },
+        {
+          "_creationTime": 1788677771324.6855,
+          "_id": "nd7bd0q4qtxya77rayeg1skgjn8dx51s",
+          "body": "候选人公开建设主张，第47日投票，第48日计票。居民可参选、退选、争取支持；失约记录会影响选票。",
+          "day": 46,
+          "kind": "election",
+          "participants": [],
+          "public": true,
+          "title": "新一轮市长竞选开始",
+          "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+        },
+        {
+          "_creationTime": 1788677771324.6836,
+          "_id": "nd763d2z375zpk86qs8z2cjm0d8dwnka",
+          "body": "医院、集市与河桥争取同一笔公共预算。居民可以支持、反对、捐资或出工；建设需要真实资金、材料和劳动。旧有记忆、财产与关系全部保留。",
+          "day": 46,
+          "kind": "season",
+          "participants": [],
+          "public": true,
+          "title": "小镇建设季开始",
+          "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+        }
+      ],
+      "projects": [
+        {
+          "_creationTime": 1788677771324.6829,
+          "_id": "nh7f1xdqz7e9dpcmrksndr0ej98dwaad",
+          "contributions": [],
+          "cost": 80,
+          "description": "增加药品储备和治疗能力，优先保障伤者。",
+          "funds": 0,
+          "key": "hospital",
+          "labor": 0,
+          "laborGoal": 12,
+          "materialGoal": 8,
+          "materials": 0,
+          "spent": 0,
+          "startedDay": 46,
+          "status": "proposed",
+          "title": "扩建医院",
+          "votes": [
+            {
+              "explicit": false,
+              "playerId": "p:4",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": false
+            },
+            {
+              "explicit": false,
+              "playerId": "p:6",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:8",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:8415",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:8419",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            }
+          ],
+          "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+        },
+        {
+          "_creationTime": 1788677771324.683,
+          "_id": "nh7d9n6e9fq74wabgr7jjhtr498dx12p",
+          "contributions": [],
+          "cost": 90,
+          "description": "改善食物供应，降低交易中的食物价格。",
+          "funds": 0,
+          "key": "market",
+          "labor": 0,
+          "laborGoal": 16,
+          "materialGoal": 12,
+          "materials": 0,
+          "spent": 0,
+          "startedDay": 46,
+          "status": "proposed",
+          "title": "建立集市",
+          "votes": [
+            {
+              "explicit": false,
+              "playerId": "p:4",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:6",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:8",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:8415",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:8419",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            }
+          ],
+          "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+        },
+        {
+          "_creationTime": 1788677771324.6833,
+          "_id": "nh779sjwes3902hrzvagxd51ys8dx62s",
+          "contributions": [],
+          "cost": 70,
+          "description": "改善公共交通，降低居民每日劳动精力消耗。",
+          "funds": 0,
+          "key": "bridge",
+          "labor": 0,
+          "laborGoal": 14,
+          "materialGoal": 10,
+          "materials": 0,
+          "spent": 0,
+          "startedDay": 46,
+          "status": "proposed",
+          "title": "修缮河桥",
+          "votes": [
+            {
+              "explicit": false,
+              "playerId": "p:4",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": false
+            },
+            {
+              "explicit": false,
+              "playerId": "p:6",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:8",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:8415",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            },
+            {
+              "explicit": false,
+              "playerId": "p:8419",
+              "reason": "依据职业、伤势、饥饿与价值观评估",
+              "support": true
+            }
+          ],
+          "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+        }
+      ],
+      "requests": [
+        {
+          "_creationTime": 1788678788670.7937,
+          "_id": "nn79n13t12dzfmpk9rk9p4ff858dwm5p",
+          "body": "尚需80枚金币、8份材料。居民希望你听听不同意见。",
+          "createdDay": 47,
+          "expiresDay": 50,
+          "from": "p:8415",
+          "fromName": "林岚",
+          "kind": "project",
+          "projectKey": "hospital",
+          "status": "open",
+          "title": "林岚邀请你讨论扩建医院",
+          "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+        },
+        {
+          "_creationTime": 1788677771324.6873,
+          "_id": "nn75h9693987h9456z622dpann8dxjme",
+          "body": "与皮特的冲突尚未解决。你可以邀请双方谈谈，但无法替居民做决定。",
+          "createdDay": 46,
+          "expiresDay": 49,
+          "from": "p:4",
+          "fromName": "斯黛拉",
+          "kind": "mediation",
+          "other": "p:8",
+          "status": "open",
+          "title": "斯黛拉希望你协调一场分歧",
+          "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+        }
+      ],
+      "season": {
+        "_creationTime": 1788677771324.6826,
+        "_id": "ns77vzdnj3y1hvmzvj3m3rqje18dwwgn",
+        "lastDay": 47,
+        "lastFestivalDay": 46,
+        "startedDay": 46,
+        "version": 1,
+        "worldId": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+      }
+    },
+    "totals": {
+      "activeConversations": 2,
+      "conversations": 1836,
+      "deceasedResidents": 3,
+      "memories": 3038,
+      "messages": 15023,
+      "messagesLast24Hours": 2023,
+      "reflections": 90,
+      "residents": 5
+    },
+    "world": "m17egvyawz4s4ef1b2bfr9zbks8dgbce"
+  },
+  "readOnly": true,
+  "architecturalPreview": "works only; locally intercepted query, no database mutation"
+}

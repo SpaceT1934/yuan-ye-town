@@ -1,0 +1,62 @@
+# Local system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+*.crt
+
+# JavaScript / TypeScript dependencies and generated output
+**/node_modules/
+ai-town-social-work/node_modules
+ai-town-social-work/check-env/
+**/dist/
+**/build/
+**/coverage/
+**/.cache/
+**/.vite/
+**/.turbo/
+**/*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local project state, databases and scratch work
+.ai-town-residents/
+.ai-town-society/
+.staging/
+**/data/
+ai-town-3d/source-world/
+ai-town-3d/reference-assets/
+ai-town-3d/source-backend/
+
+# Private-LAN deployment and capture environments
+**/*.service
+ai-town-3d/docker-compose.recovery.yml
+ai-town-3d/pc-docker-compose.override.yml
+ai-town-3d/capture-host/
+ai-town-3d/recordings/
+ai-town-3d/promo/voice-preview-env/
+ai-town-3d/promo/**/*.mp4
+ai-town-3d/*-live-check.mjs
+ai-town-3d/check-live.mjs
+ai-town-3d/capture-*.mjs
+ai-town-3d/record-demo.mjs
+ai-town-3d/inspect-promo.mjs
+
+# Large local exports and transient media
+*.sqlite
+*.sqlite3
+*.db
+*.tar
+*.tar.gz
+*.zip
+*.7z
+*.log

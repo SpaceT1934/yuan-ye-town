@@ -1,0 +1,61 @@
+{
+  "results": [
+    {
+      "name": "乐乐",
+      "lids": 2,
+      "drift": 0,
+      "lipError": 9.600717754132404e-8,
+      "finite": true
+    },
+    {
+      "name": "鲍勃",
+      "lids": 2,
+      "drift": 1.591404852341327e-8,
+      "lipError": 5.9604633562138076e-8,
+      "finite": true
+    },
+    {
+      "name": "斯黛拉",
+      "lids": 2,
+      "drift": 1.926390480466722e-8,
+      "lipError": 5.9604643887212205e-8,
+      "finite": true
+    },
+    {
+      "name": "爱丽丝",
+      "lids": 2,
+      "drift": 0,
+      "lipError": 1.1920928688624599e-7,
+      "finite": true
+    },
+    {
+      "name": "皮特",
+      "lids": 2,
+      "drift": 5.647896883509418e-8,
+      "lipError": 6.177900679915638e-8,
+      "finite": true
+    },
+    {
+      "name": "林岚",
+      "lids": 4,
+      "drift": 6.194439094997506e-8,
+      "lipError": 7.660834988598708e-8,
+      "finite": true
+    },
+    {
+      "name": "周石",
+      "lids": 4,
+      "drift": 3.6286389892836723e-8,
+      "lipError": 1.5783406182023896e-7,
+      "finite": true
+    },
+    {
+      "name": "苏菲",
+      "lids": 2,
+      "drift": 3.068994325339247e-8,
+      "lipError": 5.960463678178485e-8,
+      "finite": true
+    }
+  ],
+  "errors": []
+}

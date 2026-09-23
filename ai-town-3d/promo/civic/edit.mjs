@@ -1,0 +1,25 @@
+import fs from 'node:fs';
+import {spawnSync} from 'node:child_process';
+const lines=JSON.parse(fs.readFileSync('timing.json','utf8'));
+const duration=lines.at(-1).offset+lines.at(-1).length,insert=53,total=60.5+duration;
+const filters=lines.map((line,i)=>`[${i}:v]trim=start=0.3:duration=${line.length},setpts=PTS-STARTPTS,fps=60,setsar=1,format=yuv420p[v${i}]`);
+let last='v0',end=lines[0].length;
+for(let i=1;i<lines.length;i++){const next='x'+i;filters.push(`[${last}][v${i}]xfade=transition=fade:duration=0.5:offset=${end-.5}[${next}]`);last=next;end+=lines[i].length-.5;}
+filters.push(`[${last}]crop=1600:800:0:50,pad=1600:900:0:50:black,eq=contrast=1.025:saturation=1.025,ass=civic.ass[new]`);
+filters.push('[8:v]split=2[oa][ob]');
+filters.push(`[oa]trim=start=0:duration=${insert},setpts=PTS-STARTPTS,setsar=1[head]`);
+filters.push(`[ob]trim=start=${insert}:duration=${60.5-insert},setpts=PTS-STARTPTS,setsar=1[tail]`);
+filters.push('[head][new][tail]concat=n=3:v=1:a=0[v]');
+for(const [i,l]of lines.entries())filters.push(`[${10+i}:a]atempo=${l.tempo},loudnorm=I=-18:TP=-3:LRA=7,aresample=48000,aformat=channel_layouts=stereo,afade=t=in:d=0.025,adelay=${Math.round(l.start*1000)}|${Math.round(l.start*1000)}[line${i}]`);
+filters.push(lines.map((_,i)=>`[line${i}]`).join('')+`amix=inputs=${lines.length}:normalize=0,apad=whole_dur=${duration},atrim=duration=${duration},aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo,asplit=2[voice][side]`);
+filters.push(`[9:a]atrim=duration=${duration},loudnorm=I=-16:TP=-2:LRA=9,aresample=48000,volume=0.30,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo[bgm]`);
+filters.push('[bgm][side]sidechaincompress=threshold=0.02:ratio=4:attack=20:release=450[duck]');
+filters.push(`[duck][voice]amix=inputs=2:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=7,aresample=48000,atrim=duration=${duration},afade=t=in:d=0.2,afade=t=out:st=${duration-.25}:d=0.25[newaudio]`);
+filters.push(`[8:a]asplit=2[aa][ab];[aa]atrim=duration=${insert},asetpts=PTS-STARTPTS,afade=t=out:st=${insert-.2}:d=0.2[ahead];[ab]atrim=start=${insert}:duration=${60.5-insert},asetpts=PTS-STARTPTS,afade=t=in:d=0.25[atail];[ahead][newaudio][atail]concat=n=3:v=0:a=1[a]`);
+fs.writeFileSync('edit-filter.txt',filters.join(';\n'));
+const time=n=>{const cs=Math.round(n*100);return `0:${String(Math.floor(cs/6000)).padStart(2,'0')}:${String(Math.floor(cs/100)%60).padStart(2,'0')}.${String(cs%100).padStart(2,'0')}`};
+fs.writeFileSync('civic.ass',`[Script Info]\nScriptType: v4.00+\nPlayResX: 1600\nPlayResY: 900\nWrapStyle: 2\nScaledBorderAndShadow: yes\n\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Caption,Noto Sans CJK SC,48,&H00FFFFFF,&H00FFFFFF,&H8018100C,&H90000000,0,0,0,0,100,100,1.5,0,1,2.2,1,2,70,70,74,1\n\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n`+lines.map(l=>`Dialogue: 0,${time(l.start)},${time(l.end)},Caption,,0,0,0,,{\\fad(180,200)}${l.caption}`).join('\n')+'\n');
+const chapters=[[0,'原野小镇'],[8,'二维回顾'],[23,'三维世界与社会生活'],[53,'建设季'],[60.5,'公共工程'],[68,'竞选与承诺'],[75.5,'契约与信任'],[83,'消息与传闻'],[89.5,'居民邀请'],[97,'自愿短工'],[103.5,'社区生活'],[109.5,'让故事继续生长']];
+fs.writeFileSync('chapters.txt',';FFMETADATA1\ntitle=原野小镇 · 建设季完整版\n'+chapters.map(([start,title],i)=>`[CHAPTER]\nTIMEBASE=1/1000\nSTART=${Math.round(start*1000)}\nEND=${Math.round((chapters[i+1]?.[0]??total)*1000)}\ntitle=${title}\n`).join(''));
+const args=['-hide_banner','-loglevel','warning','-nostdin','-n','-filter_complex_threads','2',...lines.flatMap(l=>['-i',l.shot+'.mp4']),'-i','original-yunxi.mp4','-i','original-score.wav',...lines.flatMap(l=>['-i','voice/'+(l.file??l.shot+'.mp3')]),'-i','chapters.txt','-filter_complex_script','edit-filter.txt','-map','[v]','-map','[a]','-map_metadata','18','-map_chapters','18','-c:v','h264_nvenc','-preset','p5','-rc','vbr','-cq','21','-b:v','0','-c:a','aac','-ar','48000','-b:a','192k','-pix_fmt','yuv420p','-movflags','+faststart','-t',String(total),'原野小镇-建设季完整版.mp4'];
+const result=spawnSync('ffmpeg',args,{stdio:'inherit'});if(result.status)process.exit(result.status);console.log(JSON.stringify({duration:total,newChapter:duration,originalPreserved:60.5,insertAt:53}));

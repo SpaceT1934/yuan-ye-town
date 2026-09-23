@@ -1,0 +1,23 @@
+{
+  "text": "这里是原野小镇。一次偶然的相遇，也许就会改变两个人的故事。有人忙着交易，有人参与选举，也有人为了新的法律争论不休。而他们的每一次选择，都会留在这个世界的记忆里。",
+  "rate": "-5%",
+  "voices": [
+    [
+      "01-晓晓-女声",
+      "zh-CN-XiaoxiaoNeural"
+    ],
+    [
+      "02-晓伊-女声",
+      "zh-CN-XiaoyiNeural"
+    ],
+    [
+      "03-云希-男声",
+      "zh-CN-YunxiNeural"
+    ],
+    [
+      "04-云扬-男声",
+      "zh-CN-YunyangNeural"
+    ]
+  ],
+  "type": "synthetic neural voice auditions; no music"
+}

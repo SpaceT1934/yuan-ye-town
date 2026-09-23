@@ -1,0 +1,13 @@
+import {chromium} from '@playwright/test';
+import assert from 'node:assert/strict';
+const browser=await chromium.launch({channel:'chrome',headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[],writes=[];
+page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(r.method()!=='GET')writes.push(r.url())});
+await page.goto(process.env.TOWN_URL||'http://127.0.0.1:5183');await page.waitForFunction(()=>window.__townReady,null,{timeout:90000});
+await page.getByRole('button',{name:'暂停居民活动',exact:true}).click();
+const result=await page.evaluate(()=>{const {people,life,data}=window.__town,source=JSON.stringify(data.residents),before=people.map(p=>p.group.position.clone()),states=new Set();let unsafe=0;for(let i=0;i<600;i++){life.step(.05);for(const p of people){states.add(p.state);const t=life.worldToTile(p.group.position);if(life.blocked[Math.floor(t.y)*data.map.width+Math.floor(t.x)])unsafe++}}return {moved:people.map((p,i)=>p.group.position.distanceTo(before[i])),states:[...states],unsafe,unchanged:source===JSON.stringify(data.residents),outfits:people.map(p=>p.outfit),feet:people.map(p=>({name:p.resident.name,samples:p.feet.reduce((n,[m,v])=>n+v.length,0),position:p.group.position.toArray()}))}});
+console.log(JSON.stringify(result));assert.ok(result.moved.every(v=>v>.2));assert.equal(result.unsafe,0);assert.ok(result.unchanged);assert.equal(new Set(result.outfits).size,8);assert.ok(result.feet.every(p=>p.samples>0));
+await page.selectOption('#resident-select','p:8419');await page.screenshot({path:'life-closeup.png',timeout:90000});
+const grounding=await page.evaluate(()=>window.__town.life.groundingReport());assert.ok(grounding.every(p=>Math.abs(p.minimumSoleClearance-.006)<.005));console.log(JSON.stringify({grounding}));
+const positions=await page.evaluate(()=>window.__town.people.map(p=>p.group.position.toArray()));await page.waitForTimeout(300);assert.deepEqual(await page.evaluate(()=>window.__town.people.map(p=>p.group.position.toArray())),positions);
+assert.deepEqual(errors,[]);assert.deepEqual(writes,[]);console.log(JSON.stringify({...result,errors,writes}));await browser.close();

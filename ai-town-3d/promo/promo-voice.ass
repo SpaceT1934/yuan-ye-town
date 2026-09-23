@@ -1,0 +1,28 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1600
+PlayResY: 900
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Caption,Noto Sans CJK SC,48,&H00FFFFFF,&H00FFFFFF,&H8018100C,&H90000000,0,0,0,0,100,100,1.5,0,1,2.2,1,2,70,70,84,1
+Style: Title,Noto Sans CJK SC,78,&H00FFFFFF,&H00FFFFFF,&H8018100C,&H90000000,-1,0,0,0,100,100,12,0,1,2,1,5,80,80,60,1
+Style: Small,Noto Sans CJK SC,30,&H00E3EBDD,&H00FFFFFF,&H8018100C,&H90000000,0,0,0,0,100,100,4,0,1,1.5,1,5,80,80,40,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.80,0:00:02.50,Caption,,0,0,0,,{\fad(250,150)}这里是原野小镇。
+Dialogue: 0,0:00:02.50,0:00:07.40,Caption,,0,0,0,,{\fad(150,300)}每一次相遇，都可能改变后来的故事。
+Dialogue: 0,0:00:08.30,0:00:11.80,Caption,,0,0,0,,{\fad(300,150)}最初，居民生活在二维像素世界里。
+Dialogue: 0,0:00:11.80,0:00:15.80,Caption,,0,0,0,,{\fad(150,250)}交谈、结识朋友，积累记忆。
+Dialogue: 0,0:00:16.10,0:00:22.00,Caption,,0,0,0,,{\fad(300,300)}各自的身份、关系和目标，影响新的选择。
+Dialogue: 0,0:00:23.00,0:00:29.00,Caption,,0,0,0,,{\fad(300,300)}记忆延续到三维，小社会继续运转。
+Dialogue: 0,0:00:30.00,0:00:35.00,Caption,,0,0,0,,{\fad(300,250)}劳动与交易，带来食物、金币和服务。
+Dialogue: 0,0:00:35.60,0:00:40.60,Caption,,0,0,0,,{\fad(300,250)}法律提案经过表决，影响税收、民生和医疗。
+Dialogue: 0,0:00:41.20,0:00:46.00,Caption,,0,0,0,,{\fad(300,250)}市长定期改选，声望、信任与经济影响结果。
+Dialogue: 0,0:00:46.70,0:00:49.00,Caption,,0,0,0,,{\fad(300,150)}合作与分歧，改变关系。
+Dialogue: 0,0:00:49.00,0:00:52.50,Caption,,0,0,0,,{\fad(150,300)}新的经历，成为下一次选择的背景。
+Dialogue: 0,0:00:53.50,0:01:00.10,Title,,0,0,0,,{\pos(800,390)\fad(800,800)}原野小镇
+Dialogue: 0,0:00:54.20,0:01:00.10,Small,,0,0,0,,{\pos(800,483)\fad(700,800)}从二维出发，让故事继续生长

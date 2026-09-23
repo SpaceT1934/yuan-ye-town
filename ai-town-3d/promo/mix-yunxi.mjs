@@ -1,0 +1,12 @@
+import {spawnSync} from 'node:child_process';
+import fs from 'node:fs';
+const lines=JSON.parse(fs.readFileSync('promo/voice-yunxi/timing.json','utf8'));
+const filters=[];
+for(const [i,l]of lines.entries())filters.push(`[${2+i}:a]atempo=${l.tempo},loudnorm=I=-18:TP=-3:LRA=7,aresample=48000,aformat=channel_layouts=stereo,afade=t=in:d=0.025,adelay=${Math.round(l.start*1000)}|${Math.round(l.start*1000)}[line${i}]`);
+filters.push(lines.map((_,i)=>`[line${i}]`).join('')+`amix=inputs=${lines.length}:normalize=0,apad=whole_dur=60.5,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo,asplit=2[voice][side]`);
+filters.push('[1:a]atrim=duration=60.5,loudnorm=I=-16:TP=-2:LRA=9,aresample=48000,volume=0.30,aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo[bgm]');
+filters.push('[bgm][side]sidechaincompress=threshold=0.02:ratio=4:attack=20:release=450[duck]');
+filters.push('[duck][voice]amix=inputs=2:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=7,aresample=48000,afade=t=out:st=59:d=1.5[a]');
+fs.writeFileSync('promo/voice-yunxi/mix-filter.txt',filters.join(';\n'));
+const args=['-hide_banner','-loglevel','warning','-nostdin','-n','-i','recordings/原野小镇-配音宣传片.mp4','-i','promo/original-score.wav',...lines.flatMap((l,i)=>['-i',`promo/voice-yunxi/${l.file??i+'.mp3'}`]),'-filter_complex_script','promo/voice-yunxi/mix-filter.txt','-map','0:v:0','-map','[a]','-c:v','copy','-c:a','aac','-ar','48000','-b:a','192k','-movflags','+faststart','-t','60.5','recordings/原野小镇-云希男声版.mp4'];
+const r=spawnSync('/opt/homebrew/bin/ffmpeg',args,{stdio:'inherit'});if(r.status)process.exit(r.status);
