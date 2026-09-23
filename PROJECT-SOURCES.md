@@ -15,7 +15,7 @@
 
 - JanUbuntu 的 Convex 源文件共 57 个，均能在当前 `ai-town-social-work/convex/` 中找到。
 - 逐文件校验后，核心 Convex 源码与 JanUbuntu 工作区一致。
-- 3D 版本不在 JanUbuntu 的原始项目目录中；当前仓库的 `ai-town-3d/` 是独立的第三维展示端。
+- 当前仓库的 `ai-town-3d/` 是原野小镇的独立 3D 展示端。
 - JanUbuntu 的前端修改属于原始 2D AI Town 界面；当前仓库用独立 3D 前端作为展示入口，因此不把两套前端混成一个启动命令。
 
 ## 不上传的内容

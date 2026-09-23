@@ -1,10 +1,10 @@
-# 原野小镇 · 第三维
+# 原野小镇
 
-一个把 AI Town 的持久化社会模拟、居民记忆和社区治理，呈现为可实时观察的 3D 小镇的实验性项目。
+一个由 AI 驱动 NPC 的小镇：每位居民拥有自己的性格、关系、长期记忆和行动规则，会在持续运行的社会模拟中交谈、协作、冲突、投票并参与社区建设。
 
-![原野小镇第三维](ai-town-3d/live-town.png)
+![原野小镇](ai-town-3d/live-town.png)
 
-> 这是一个研究与展示项目：3D 前端、社会模拟后端和本地模型服务可以分别运行，也可以组合成完整的实时小镇。
+> 这是一个研究与展示项目：2D/3D 前端、社会模拟后端和模型服务可以分别运行，也可以组合成完整的实时小镇。
 
 ## 项目内容
 
@@ -17,6 +17,7 @@
 ## 亮点
 
 - 8 位具有独立资料、关系和长期记忆的 AI 居民。
+- NPC 的对话与社会行为由模型生成，同时受持久化记忆、关系和明确的行动规则约束。
 - 从原始 64×48 地图映射出的可探索三维场景。
 - 对话、位置和社会状态由后端驱动，断线时明确显示连接状态，不用随机动画伪装在线生活。
 - 建设季包含医院、集市、河桥、财政、借款、投票、履约和社区邀请等机制。
@@ -47,6 +48,52 @@ npm run dev
 ```
 
 后端依赖 Convex 和模型服务。首次部署前请按 Convex 官方文档配置自己的部署环境与密钥；项目中的本地运行数据、快照和部署配置默认不会进入 Git。
+
+## 接入模型
+
+原野小镇通过 OpenAI 兼容的 `/v1/chat/completions` 接口驱动 NPC 对话和记忆嵌入，支持本地模型，也支持云端 API。模型密钥只应写入 Convex 环境变量，不要写进源码或提交到 Git。
+
+### 方式一：本地 Ollama
+
+安装并启动 [Ollama](https://ollama.com/)，准备一个对话模型和一个向量模型：
+
+```bash
+ollama pull qwen2.5:7b
+ollama pull mxbai-embed-large
+ollama serve
+```
+
+然后在 Convex 部署环境中设置：
+
+```bash
+npx convex env set OLLAMA_HOST http://127.0.0.1:11434
+npx convex env set OLLAMA_MODEL qwen2.5:7b
+npx convex env set OLLAMA_EMBEDDING_MODEL mxbai-embed-large
+```
+
+如果 Convex 运行在另一台机器，`OLLAMA_HOST` 必须填写 Convex 服务能够访问到的地址；不要直接把 Ollama 端口暴露到公网。
+
+### 方式二：OpenAI 或其他云端 API
+
+使用 OpenAI：
+
+```bash
+npx convex env set LLM_PROVIDER openai
+npx convex env set OPENAI_API_KEY your-key
+npx convex env set OPENAI_CHAT_MODEL gpt-4o-mini
+npx convex env set OPENAI_EMBEDDING_MODEL text-embedding-3-small
+```
+
+也可以接入任何兼容 OpenAI 接口的服务：
+
+```bash
+npx convex env set LLM_API_URL https://your-provider.example.com
+npx convex env set LLM_API_KEY your-key
+npx convex env set LLM_MODEL your-chat-model
+npx convex env set LLM_EMBEDDING_MODEL your-embedding-model
+```
+
+自定义服务需要同时提供聊天和嵌入接口，并确保嵌入维度与 `convex/util/llm.ts` 中的配置一致。前端还需要设置对应的 `VITE_CONVEX_URL`，连接到你的 Convex 部署。
 
 ## 操作
 
