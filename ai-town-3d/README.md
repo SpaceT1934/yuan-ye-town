@@ -1,52 +1,40 @@
 # 原野小镇
 
-原 AI Town 的独立 3D 前端，连接 PCUbuntu 原世界后端，JanUbuntu 运行模型。2026-09-06 已修复停机快进问题，从恢复前第 40 天完整备份恢复，并验证产生新的中文对话和长期记忆。
+[English](README.md) · [中文](README.zh-CN.md)
 
-## 当前版本
+The standalone realtime 3D client for 原野小镇. It renders AI-driven NPCs, their town, community projects, and observatory views from persistent backend state.
 
-- 8 位原居民：乐乐、鲍勃、斯黛拉、爱丽丝、皮特、林岚、周石、苏菲。
-- 8 套独立人物：Nathan、Manuel、Carla、Claudia、Eric、Sophia 来自 Renderpeople；Female Adult 01、Male Adult 08 来自 Microsoft Rocketbox。后 2 套的面部精细度低于扫描素材。姓名与资料仍对应原 8 位居民。
-- 原姓名、ID、性格、职业、派系、血量、关系、记忆摘要及坐标来自第 40 天暂停存档，代数 41512。
-- 原 64×48 地图数据完整保留；河流、树林、营地、风车和物品映射成三维场景。地形高度、材质和几何是美术重建，不是逐像素还原。
-- 树木、苔藓岩石、树桩使用 Poly Haven CC0 写实模型，经过减面与实例化。
-- 2026-09-06 渲染优化：树木按镜头范围筛选；近处保留完整扫描模型，远处使用浏览器从原模型实时烘焙的 16 个方向/仰角视图，避免直接减面丢失树叶。导航障碍仍取完整原模型边界，不随画质切换。场景每帧提交约 50 万三角面，原版约 1,600 万。
-- 实测 Mac M2 在同一自动化浏览器环境中，全景由约 6 FPS 提高到约 32 FPS。JanUbuntu RTX 4070 使用 NVIDIA Vulkan 渲染，原版对照约 60 FPS；优化版 60 帧硬件录屏期间实际渲染均值 59.8 FPS。不同电脑、浏览器及实时负载会影响结果，不保证所有设备 60 FPS。
-- 实时连接后使用原后端位置和对话状态驱动人物，按三维障碍物投影和绕行；断线冻结并显示连接错误，不使用随机活动冒充 AI。
-- 初始展示从原存档加载，随后读取后端当前坐标与状态；浏览器刷新不重置世界。三维绕行仅影响展示位置，不覆盖后端 AI 坐标。
-- 逐帧按蒙皮脚部采样对齐地形，不再使用换色来冒充不同人物。按场景模型包围盒生成保守碰撞范围，加上人物宽度与逐步移动检测。
-- 动作按骨骼初始姿态重定向，Rocketbox 四肢额外按骨段方向校准。动作切换使用显式姿态插值，避免露出 T 字参考姿态。
-- 已实现原世界状态、对话、人物资料、观察站的连接层及进入/退出和聊天控件；已验证页面连接、观察站和 AI 自主对话/记忆增长。玩家聊天交互尚未全面验收；战斗、治疗等专用动作和玩家完整三维化仍待完善。
+## Features
 
-## 运行与操作
+- Eight resident profiles with distinct models, names, relationships, health, memories, and locations.
+- A 64×48 original map reconstructed as a navigable 3D scene with terrain, river, forest, windmill, buildings, and props.
+- Live connection to backend positions, dialogue, resident profiles, observatory data, and civic-season state.
+- Explicit connection failures and frozen state when the backend is unavailable; no random activity is used to fake an online world.
+- Tree instancing, distance-based detail, baked view impostors, conservative collision bounds, and foot-to-terrain alignment for practical browser performance.
 
-预览地址由部署环境提供；本地默认使用 `http://localhost:5183/`。
+## Run locally
 
-本地：`npm install`、`npm run dev`。构建：`npm run build`。
+```bash
+npm install
+npm run dev
+```
 
-拖动旋转、右键平移、滚轮缩放，点击人物或地图标记选择居民。1 全镇俯瞰、3 人物近景、H 隐藏界面。
+Build for production with `npm run build`. The Vite development server serves local static assets. A deployment-specific API proxy is required to connect this client to the social simulation backend.
 
-部署时可用 Node 提供静态页面及白名单 API 代理，不加载模型。生产构建后运行 `node server.mjs`；Vite 开发服务器没有后端代理。服务文件和机器路径属于私有部署配置，不随公开源码提交。
+## Controls
 
-JanUbuntu 的现有 Ollama 已通过 PC 专用 SSH 隧道验证：qwen2.5:7b 对话、mxbai-embed-large 原维度嵌入。Jan 上的旧世界后端保持停止，仅复用模型。
+- Drag to orbit, right-click to pan, and scroll to zoom.
+- Click a resident or map marker to inspect them.
+- `1`: town overview; `3`: resident close-up; `H`: hide the interface.
 
-恢复前的完整备份、异常快进测试和原始数据卷均保留在私有运行环境，不随公开源码提交。
+## Backend and model service
 
-现用数据卷 `ai-town_day40_recovered_20260906`，由原项目 `docker-compose.override.yml` 显式选择，避免下次启动误用异常数据。冷恢复仅在隔离副本设置暂停标志和引擎代数，完整性检查通过；原 8 人、13,000 条消息和 2,626 条记忆核对后才恢复运行。修复代码：`convex/aiTown/resumeClock.ts`、`convex/aiTown/main.ts`、`convex/society.ts`。恢复及异常停机重启会平移活动计时和社会时钟基准，不修改历史消息、记忆及交易时间；社会系统不在暂停或引擎过期时推进。
+The client consumes backend state; it does not run the NPC model itself. Use [`../ai-town-social-work`](../ai-town-social-work/) for the 2D client and Convex social simulation. Model setup instructions for local Ollama and OpenAI-compatible APIs are in the [root README](../README.md).
 
-`node check-resume-clock.mjs` 验证五天停机后日期、阶段和路径/对话计时保留。`node check-pause-resume.mjs` 是会实际暂停并恢复世界的集成测试，不用于日常只读状态检查。日常暂停请使用页面“暂停原世界”，不要仅关闭浏览器；关闭浏览器不停止后端。
+## Assets
 
-## 数据安全与校验
+Asset sources and licenses are documented in [`public/assets/CREDITS.md`](public/assets/CREDITS.md). The project uses Poly Haven CC0 assets, Microsoft Rocketbox MIT assets, Renderpeople free samples, and original procedural scene work. Check upstream terms before redistribution.
 
-`export-paused-world.py` 以 SQLite 只读方式导出白名单业务表和记忆摘要，不导出凭据。原卷及原备份保持不变，恢复卷继续保存新活动。PC 上 `source-world/paused-world.sqlite3` 是单独的暂停数据库副本，不作为预览后端使用。
+## Validation scripts
 
-`build-world.mjs` 生成静态快照与地图图像。`node check-original-world.mjs` 核对 8 人身份、血量、地图原始层、坐标及无模型请求，并保存截图。`TOWN_URL` 可指定部署地址。
-
-当前使用 `node check-cast.mjs`：8 套模型唯一性、逐人近景、重复步行手臂检查、45 秒场景碰撞检查、比例与脚底检查、原资料不变。`TOWN_URL` 可指定部署地址。`check-life.mjs` 为上一版配色角色测试；`check-original-world.mjs` 为更早的静态展示测试。素材来源见 `public/assets/CREDITS.md`。本目录是场景预览，不代表完整游戏系统迁移已完成。
-
-## 录制与性能检查
-
-`diagnose-performance.mjs --quick`：只读浏览器帧时间/绘制量采样，支持 `TOWN_URL`、`CHROME_EXECUTABLE`、`CHROME_ARGS`。完整模式会在独立测试页临时隐藏对象作对照，不修改线上项目或后端数据。
-
-录制使用独立的 Playwright/Chromium 环境，不改原项目环境；具体录制脚本和机器路径属于私有部署配置。模型服务始终保持运行。
-
-录制反映当时的世界状态；视频、指标和发布备份保存在私有运行环境，不随公开源码提交。
+The `check-*.mjs` scripts validate rendering, resident uniqueness, face motion, pause/resume behavior, collision, and civic UI. Set `TOWN_URL` when running checks against a deployed preview. Private service files, machine paths, recordings, and backups are intentionally excluded from the repository.
